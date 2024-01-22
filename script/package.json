@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "question": "node index.js question",
-    "question:today": "node index.js questionOfToday",
+    "questionOfToday": "node index.js questionOfToday",
     "weeklyContest": "node index.js weeklyContest"
   },
   "dependencies": {
