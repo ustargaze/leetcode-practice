@@ -1,4 +1,3 @@
-const html2md = require('html-to-md')
 const fs = require('fs')
 const path = require('path')
 const readline = require('readline')
@@ -26,12 +25,9 @@ exports.createQuestionMD = async () => {
 
 function createMarkdownFile({ id, title, titleSlug, difficulty, tags, content }) {
     const difficultyColor = difficulty === 'Easy' ? 'green' : difficulty === 'Medium' ? 'orange' : 'red'
+
     // 将 tag 数组拼接成字符串
     const tag = tags.map((tag) => `\`${tag.name}\``).join(' ')
-    // 将 html 格式的题目描述转换为 markdown 格式
-    let markdownContent = html2md(content)
-    // 将 <sup>num</sup> 替换为 ^num 同时去掉 ``` 后多的换行符
-    markdownContent = markdownContent.replace(/<sup>(\d+)<\/sup>/g, '^$1').replaceAll('```\n\n', '```\n')
 
     // 拼接成 markdown 文档的内容
     const markdown = `# ${id}. ${title}
@@ -44,7 +40,7 @@ function createMarkdownFile({ id, title, titleSlug, difficulty, tags, content })
 
 ## 题目
 
-${markdownContent}
+${content}
 
 --------------------
 

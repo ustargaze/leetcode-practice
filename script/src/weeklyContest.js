@@ -1,9 +1,8 @@
-const html2md = require('html-to-md')
 const fs = require('fs')
 const path = require('path')
 const readline = require('readline')
 const dayjs = require('dayjs')
-const { getQuestion, getWeeklyContestInfo } = require('./requestUtil')
+const { getWeeklyContestInfo } = require('./requestUtil')
 
 exports.createWeeklyContentMD = async () => {
     // 从控制台输入 url，然后根据 url 解析处 titleSlug 去获取题目内容
