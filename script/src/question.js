@@ -14,7 +14,7 @@ exports.createQuestionMD = async () => {
     const titleSlug = await new Promise((resolve) => {
         inputInterface.question(`输入需要获取的题目的 url：`, (input) => {
             inputInterface.close()
-            const titleSlug = /https:\/\/leetcode\.cn\/problems\/([A-Za-z0-9-]+?)\//.exec(input)[1]
+            const titleSlug = /https:\/\/leetcode\.cn\/problems\/([A-Za-z0-9-]+)\/.*?/.exec(input)[1]
             resolve(titleSlug)
         })
     })
