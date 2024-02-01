@@ -64,15 +64,23 @@ ${content}
 - 空间复杂度：$O()$。
 `
     title = title.replaceAll(' ', '')
-    const filename = `${'0'.repeat(Math.max(4 - id.length, 0)) + id}.${title}.md`
-    const numberId = Number.parseInt(id)
-    const min = String(Math.floor(numberId / 100) * 100 + 1)
-    const max = String((Math.floor(numberId / 100) + 1) * 100)
-    const fileDir = path.join(
-        process.env.PWD,
-        '../',
-        `${'0'.repeat(Math.max(4 - min.length, 0)) + min}-${'0'.repeat(Math.max(4 - max.length, 0)) + max}`
-    )
+    let filename
+    let fileDir
+    if (id.startsWith('LC')) {
+        const results = id.split(' ')
+        filename = `${results[1]}.${title}.md`
+        fileDir = path.join(process.env.PWD, '../', results[0])
+    } else {
+        filename = `${'0'.repeat(Math.max(4 - id.length, 0)) + id}.${title}.md`
+        const numberId = Number.parseInt(id)
+        const min = String(Math.floor(numberId / 100) * 100 + 1)
+        const max = String((Math.floor(numberId / 100) + 1) * 100)
+        fileDir = path.join(
+            process.env.PWD,
+            '../',
+            `${'0'.repeat(Math.max(4 - min.length, 0)) + min}-${'0'.repeat(Math.max(4 - max.length, 0)) + max}`
+        )
+    }
     if (!fs.existsSync(path.join(fileDir))) {
         fs.mkdirSync(fileDir)
     }
@@ -81,5 +89,5 @@ ${content}
         throw new Error(`${filename} 已经存在`)
     }
     fs.writeFileSync(path.join(fileDir, filename), markdown)
-    console.log(`${filename} 创建成功`)
+    console.log(`${fileDir}/${filename} 创建成功`)
 }
