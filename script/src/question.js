@@ -8,16 +8,18 @@ exports.createQuestionOfTodayMD = async () => {
     createMarkdownFile(question)
 }
 
-exports.createQuestionMD = async () => {
-    // 从控制台输入 url，然后根据 url 解析处 titleSlug 去获取题目内容
-    const inputInterface = readline.createInterface({ input: process.stdin, output: process.stdout })
-    const titleSlug = await new Promise((resolve) => {
-        inputInterface.question(`输入需要获取的题目的 url：`, (input) => {
-            inputInterface.close()
-            const titleSlug = /https:\/\/leetcode\.cn\/problems\/([A-Za-z0-9-]+)\/.*?/.exec(input)[1]
-            resolve(titleSlug)
+exports.createQuestionMD = async (titleSlug) => {
+    if (!titleSlug) {
+        // 从控制台输入 url，然后根据 url 解析处 titleSlug 去获取题目内容
+        const inputInterface = readline.createInterface({ input: process.stdin, output: process.stdout })
+        titleSlug = await new Promise((resolve) => {
+            inputInterface.question(`输入需要获取的题目的 url：`, (input) => {
+                inputInterface.close()
+                const titleSlug = /https:\/\/leetcode\.cn\/problems\/([A-Za-z0-9-]+)\/.*?/.exec(input)[1]
+                resolve(titleSlug)
+            })
         })
-    })
+    }
 
     const question = await getQuestion(titleSlug)
     createMarkdownFile(question)
