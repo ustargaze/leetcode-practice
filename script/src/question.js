@@ -75,8 +75,8 @@ ${content}
     } else {
         filename = `${'0'.repeat(Math.max(4 - id.length, 0)) + id}.${title}.md`
         const numberId = Number.parseInt(id)
-        const min = String(Math.floor(numberId / 100) * 100 + 1)
-        const max = String((Math.floor(numberId / 100) + 1) * 100)
+        const min = String(Math.floor(numberId / 100) * 100)
+        const max = String((Math.floor(numberId / 100) + 1) * 100 - 1)
         fileDir = path.join(
             process.env.PWD,
             '../',
